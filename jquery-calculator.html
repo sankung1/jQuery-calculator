@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>jQuery Calculator</title>
+  <meta charset="UTF-8">
+  <title>jQuery Calculator</title>
 
-    <!-- Added link to the jQuery Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Added a link to Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- Added a link to our external stylesheet-->
-    <link rel="stylesheet" href="style.css">
+  <!-- Added a link to our external stylesheet-->
+  <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
-<!-- Jumbotron for Title -->
-<div class="jumbotron">
+  <!-- Jumbotron for Title -->
+  <div class="jumbotron">
     <h1 class="text-center">jQuery Calculator</h1>
     <h3 class="text-center">Perform basic mathematic operations using the power of jQuery!</h3>
-</div>
+  </div>
 
-<div class="container">
+  <div class="container">
 
     <div class="row">
 
@@ -73,77 +75,91 @@
     </div>
   </div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+    $(document).ready(function () {
+      let firstNumber = $("#first-number");
+      let secondNumber = $("#second-number");
+      let resultText = $("#result");
+      let number1 = "";
+      let operator = "";
+      let number2 = "";
+      let result = "";
+      // Your code here...
+      $(".number").on("click", function () {
 
-$(document).ready(function() {
-let number1 = "";
-let operator = "";
-let number2 = "";
-let result = 0;
-// Your code here...
-$(".number").on("click", function(){
-  
-  if (!operator){
-    number1 += $(this).val();
-    $("#first-number").text(number1);
-    number1 = parseInt(number1);
-  }else{
-    number2 += $(this).val();
-    $("#second-number").text(number2);
-    number2 = parseInt(number2);
-  }
-});
+        if (!operator) {
+          number1 += $(this).val();
+          $("#first-number").text(number1);
+          number1 = parseInt(number1);
+        } else {
+          number2 += $(this).val();
+          $("#second-number").text(number2);
+          number2 = parseInt(number2);
+        }
+      });
 
-$(".operator").on("click", function(){
-  operator = ($(this).val());
-  
-})
+      $(".operator").on("click", function () {
+        operator = ($(this).val());
 
-$(".equal").on("click", function(){
-  console.log($(this).val())
-})
-$("#button-clear").on("click", function(){
-  console.log($(this).val());
-})
-
-if (operator === "plus") {
-  addition();
-}else if(operator === "minus"){
-  subtraction();
-}else if(operator === "times"){
-multiplication();}
-else if(operator === "divide"){
-  division();
-}
+      })
 
 
-$("#result").text(result);
+      $(".equal").on("click", function () {
+        if (operator === "plus") {
+          result = number1 + number2;
+          
+        } else if (operator === "minus") {
+          result = number1 - number2;
+        } else if (operator === "times") {
+          result = number1 * number2;
+        } else if (operator === "divide") {
+          result = number1 / number2;
+        } else if (operator === "power") {
+          result = number1 ** number2;
+        }
+          $("#result").text(result);
+      })
+      $("#button-clear").on("click", function(){
+        number1 = "";
+        number2 = "";
+        result = "";
+        operator = "";
 
-// addition function
-function addition(){
-  result = number1 + number2;
-  
-}
-
-function subtraction(){
-  result = number1 - number2;
-}
-
-function multiplication(){
-result = number1 * number2;
-}
-function division(){
-result = number1 / number2;
-}
-function powerOf(){
-result = number1 ^ number2;
-}
-
-});
+        $("#operator").empty();
+        $("#result").empty();
+        $("#first-number").empty();
+        $("#second-number").empty();
+      });
+      
+      $(".operator").on("click", () => {
+      operator = ($(this).val());
+      operatorDiv = $("#operator");
 
 
+      switch (operator) {
+      case 'plus':
+      operatorDiv.text('+');
+      break;
+      case 'minus':
+      operatorDiv.text('-');
+      break;
+      case 'times':
+      operatorDiv.text('*');
+      break;
+      case 'divide':
+      operatorDiv.text('/');
+      break;
+      case 'power':
+      operatorDiv.text('^');
+      break;
+      default:
+      operatorDiv.text(operator);
+      }
+      });
 
-</script>
+    });
+  </script>
 
 </body>
+
 </html>
